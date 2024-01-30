@@ -1,10 +1,20 @@
 // // Sophia Carlone
 // //Todo program
 
+use winit::window::{self, Fullscreen, Window};
+
 fn main() {
-    MainWindow::new().unwrap().run().unwrap();
+    let main_window = MainWindow::new().unwrap();
+    // main_window.window().set_fullscreen();
+    // main_window.window().set_fullscreen(true);
+    // main_window.window().set_size(|winit_win: &winit::window::Window| {
+    //     winit_win.set_fullscreen(Some(winit::window::Fullscreen::Borderless(winit_win.current_monitor())));
+    // });
+    // main_window.window().set_size(100);
+    main_window.run().unwrap();
 }
 
+//slint language inside
 slint::slint! {
     struct TaskData{
         label: string,
@@ -17,22 +27,26 @@ slint::slint! {
         width: 64px;
         height: 64px;
         background: #3960D5;
-        Text{
-            text:"kill Peter";
-        }
+        // Text{
+        //     text:"kill Peter";
+        // }
     }
-
+    
     export component MainWindow inherits Window {
-        width: 100px;
-        height: 100px;
+        width: 1800px;
+        height: 1200px;
+        // preferred-width: 100%;
+        // preferred-height: 100%;
+        // property window_width <=> width;
+        // property window_height <=> height;
         background: #8374D5; //Pulled this out of my butt and it turns out to be a really pretty purple
         in property <[TaskData]> tasks: [
-            {label: "kill peter", completed: false, priority: 5, due: 0},
-            {label: "kill cary", completed: false, priority: 5, due: 0}
+            {label: "kill peter", completed: false, priority: 0, due: 0},
+            {label: "kill cary", completed: false, priority: 0, due: 0}
         ];
         for task[i] in tasks : Task {
-            x:i*64px*2;
-            y:i*64px*2;
+            x:i*64px;
+            y:i*64px;
             width: 64px;
             height: 64px;
             background: #3960D5;
@@ -42,6 +56,18 @@ slint::slint! {
         }
     }
 }
+
+// std::env::set_var("SLINT_FULLSCREEN", "1");
+
+/*TODOs in order */
+//TODO: Fullscreen //there is some kind of splint full screen thing. For now (1800 x 1200) is ok
+//TODO: Basic Layout
+//TODO: test wrapping
+//TODO: Drag and drop
+//TODO: custom colors
+
+
+/***********GARBAGE SHOOT***********/
 
 // //TODO: tasks need an bool (done) and optional due date (and maybe priority)
 
