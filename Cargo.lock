@@ -243,6 +243,7 @@ dependencies = [
  "fluent-langneg",
  "fluent-syntax",
  "fnv",
+ "im",
  "instant",
  "tracing",
  "tracing-subscriber",
