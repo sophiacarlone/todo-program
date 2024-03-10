@@ -36,12 +36,27 @@ fn build_ui() -> impl Widget<TodoList>{ //root widget
             }
     });
 
+    let delete_completed = Button::new("Deleted Checked Boxes")
+        .on_click(|_, data: &mut TodoList, _|{
+            //TODO: go through the vector and find and delete all the ones that were completed
+            // let mut v_iter = data.todos.iter();
+            data.todos.retain(|x| !x.completed );
+            // for i in v_iter{
+            //     if i.completed{
+            //         data.todos.remove(
+            //     }
+            // }
+        });
+
+    // Try to get this on center top
     Flex::column()
-        .with_child(day)
         .with_child(Flex::row()
             .with_child(TextBox::new().lens(TodoList::text))
             .with_child(add_new))
-}
+        .with_child(delete_completed)
+        .with_child(day)
+        .scroll()
+    }
 
 fn main() {
     let main_window = WindowDesc::new(build_ui())
