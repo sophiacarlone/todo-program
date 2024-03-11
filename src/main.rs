@@ -2,7 +2,7 @@
 
 // use druid::platform_menus::mac::file::print;
 use druid::{AppLauncher, Data, Lens, Widget, WidgetExt, WindowDesc, Env};
-use druid::widget::{Button, Checkbox, Flex, Label,  List,  TextBox};
+use druid::widget::{Button, Checkbox, Flex, Label,  List,  TextBox, Align};
 use im::Vector; //cannot use standard vector
 use std::fs::File;
 use std::fs;
@@ -45,7 +45,8 @@ fn build_ui() -> impl Widget<TodoList>{ //root widget
                     .expect("failed to open file"); //TODO find better place for it
                 let new_task = data.text.clone();
                 data.text = "".to_string();
-                file.write(new_task.as_bytes()).expect("write failed");
+                let temp_string = new_task.clone() + "\n";
+                file.write(temp_string.as_bytes()).expect("write failed");
                 data.todos.push_back(TaskData {label: new_task, priority: 1, completed: false});
             }
     });
@@ -56,7 +57,8 @@ fn build_ui() -> impl Widget<TodoList>{ //root widget
             fs::remove_file("./src/tasks.txt").expect("could not remove file");
             let mut file = File::create("./src/tasks.txt").expect("failed to open file"); //TODO find better place for it
             for t in data.todos.iter(){
-                file.write(t.label.as_bytes()).expect("write failed");
+                let temp_string = t.label.clone() + "\n";
+                file.write(temp_string.as_bytes()).expect("write failed");
             }
         });
 
