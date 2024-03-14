@@ -1,8 +1,8 @@
 //Sophia Carlone
 
 // use druid::platform_menus::mac::file::print;
-use druid::{AppLauncher, Data, Lens, Widget, WidgetExt, WindowDesc, Env};
-use druid::widget::{Button, Checkbox, Flex, Label,  List,  TextBox, Align};
+use druid::{AppLauncher, Data, Env, Lens, UnitPoint, Widget, WidgetExt, WindowDesc};
+use druid::widget::{Button, Checkbox, Flex, Label,  List,  TextBox,};
 use im::Vector; //cannot use standard vector
 use std::fs::File;
 use std::fs;
@@ -65,11 +65,12 @@ fn build_ui() -> impl Widget<TodoList>{ //root widget
     //TODO: Try to get this on center top
     Flex::column()
         .with_child(Flex::row()
-            .with_child(TextBox::new().lens(TodoList::text))
+            .with_child(TextBox::new().lens(TodoList::text).center())
             .with_child(add_new))
         .with_child(delete_completed)
         .with_child(day)
         .scroll()
+        .align_vertical(UnitPoint::TOP)
     }
 
 fn main() {
